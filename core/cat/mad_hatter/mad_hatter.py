@@ -75,6 +75,11 @@ class MadHatter:
             if plugin_id in self.active_plugins:
                 self.toggle_plugin(plugin_id)
 
+            # Execute hook on plugin uninstallation
+            for hook in self.plugins[plugin_id]._plugin_overrides:
+                if hook.name == "uninstalled":
+                    hook.function(self.plugins[plugin_id])
+
             # remove plugin from cache
             plugin_path = self.plugins[plugin_id].path
             del self.plugins[plugin_id]
@@ -127,6 +132,11 @@ class MadHatter:
             plugin = Plugin(plugin_path)
             # if plugin is valid, keep a reference
             self.plugins[plugin.id] = plugin
+            
+            # Execute hook on plugin installation
+            for hook in self.plugins[plugin.id]._plugin_overrides:
+                if hook.name == "installed":
+                    hook.function(self.plugins[plugin.id])
         except Exception as e:
             # Something happened while loading the plugin.
             # Print the error and go on with the others.

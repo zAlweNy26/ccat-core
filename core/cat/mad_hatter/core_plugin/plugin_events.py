@@ -121,3 +121,27 @@ def deactivated(plugin):
         Plugin: Cat object representing the plugin instance in memory.
     """
     return None
+
+
+@plugin
+def installed(plugin):
+    """This method allows executing custom code right after a plugin is installed.
+
+    Parameters
+    ----------
+    plugin
+        Plugin: Cat object representing the plugin instance in memory.
+    """
+    return None
+
+
+@plugin
+def uninstalled(plugin):
+    """This method allows executing custom code right before a plugin is uninstalled.
+
+    Parameters
+    ----------
+    plugin
+        Plugin: Cat object representing the plugin instance in memory.
+    """
+    return None
